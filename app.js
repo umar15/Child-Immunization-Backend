@@ -75,17 +75,17 @@ require("./config/mongooseConnection")((err) => {
 		winston.error(err);
 	} else {
 		// Serve static assets if in production
-		if (process.env.NODE_ENV === "production") {
-			// Set static folder
-			app.use(express.static("client/build"));
+		// if (process.env.NODE_ENV === "production") {
+		// 	// Set static folder
+		// 	app.use(express.static("client/build"));
 
-			app.get("*", (req, res) => {
-				res.sendFile(path.resolve(__dirname, "client", "build", "index.html"));
-			});
-		}
+		// 	app.get("*", (req, res) => {
+		// 		res.sendFile(path.resolve(__dirname, "client", "build", "index.html"));
+		// 	});
+		// }
 
 		global.server = http.createServer(app);
-		global.server.listen(global.config.PORT);
+		global.server.listen(global.config.PORT || "3001");
 		// global.server.listen("3000");
 		global.server.on("error", expressListeners.onError);
 		global.server.on("listening", expressListeners.onListening);
